@@ -1,0 +1,6 @@
+Exported on: 2025-12-06T20:47:43.208Z
+Total Records: 2
+File: export.txt
+
+ID: 1765053943479 | Name: S. R. Haqqi | Value: 10
+ID: 1765054009255 | Name: Rayyan | Value: 11
