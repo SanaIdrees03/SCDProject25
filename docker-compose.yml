@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+    container_name: scd-backend
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    networks:
+      - nodevault-net
+    depends_on:
+      - mongo-db
+
+  mongo-db:
+    image: mongo:latest
+    container_name: mongo-db
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - nodevault-net
+
+networks:
+  nodevault-net:
+    driver: bridge
+
+volumes:
+  mongo-data:
+

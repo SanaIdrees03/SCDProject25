@@ -2,14 +2,21 @@
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
-const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri);
+const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/nodevault'; // default if env not set
+const client = new MongoClient(MONGO_URI);
 let db;
 
 async function connectDB() {
   if (!db) {
-    await client.connect();
-    db = client.db(); // Use the database from the URI (e.g., nodevault)
+    try {
+      await client.connect();
+      const dbName = process.env.MONGO_DB_NAME || 'nodevault'; // fallback database name
+      db = client.db(dbName);
+      console.log(`Connected to MongoDB database: ${dbName}`);
+    } catch (err) {
+      console.error('Error connecting to MongoDB:', err);
+      throw err;
+    }
   }
   return db;
 }
